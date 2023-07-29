@@ -23,7 +23,7 @@ router.route('/').post(async (req, res) => {
 
     const response = await axios.get('https://api.unsplash.com/search/photos', {
       headers: {
-        Authorization: `Client-ID ${UNSPLASH_API_KEY}`
+        Authorization: `Client-ID ${process.env.UNSPLASH_API_KEY}`
       },
       params: {
         query: prompt
