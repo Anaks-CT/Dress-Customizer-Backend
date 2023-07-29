@@ -34,12 +34,14 @@ router.route('/').post(async (req, res) => {
     const imageUrl = response.data.results[0].urls.raw;
 
     // Fetch the image data from the URL
-    const imageResponse = await fetch(imageUrl);
-    const imageBuffer = await imageResponse.arrayBuffer();
+    const imageResponse = await axios.get(imageUrl, {
+      responseType: 'arraybuffer',
+    });
+    const imageBuffer = Buffer.from(imageResponse.data);
 
-    // Convert the image data to base64
-    const imageBase64 = Buffer.from(imageBuffer).toString('base64');
-
+    // Convert the image data to base64  
+    const imageBase64 = imageBuffer.toString('base64');
+ 
     res.status(200).json({ photo: imageBase64 });
   } catch (error) {
     console.error(error);
